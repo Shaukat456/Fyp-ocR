@@ -1,4 +1,5 @@
 import axios from "axios";
+import Image from "next/image";
 import React, { useRef, useState } from "react";
 import { toast } from "react-toastify";
 import Webcam from "react-webcam";
@@ -7,14 +8,13 @@ export const Login = () => {
   const [name, setName] = useState();
 
   const handleSubmit = e => {
-    e.preventDefault();
     let data = new FormData(e.target);
 
+    let values = Object.fromEntries(data);
+    console.log({ values });
     if (!data.get("name") || !data.get("email")) {
       return toast("", {
         type: "error",
-        closeOnClick: true,
-        isLoading: true,
       });
     }
 
@@ -24,6 +24,8 @@ export const Login = () => {
       alert("Please enter a valid email address.");
       return "Please enter a valid email address.";
     }
+
+    e.preventDefault();
   };
 
   return (
@@ -46,6 +48,7 @@ export const Login = () => {
                   type="email"
                   name="email"
                   id="email"
+                  value={"abdulahadsheikh@gmail.com"}
                   className="focus:ring-primary-600 focus:border-primary-600 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm"
                   placeholder="************@gmail.com"
                   required
@@ -62,6 +65,7 @@ export const Login = () => {
                   type="password"
                   name="password"
                   id="password"
+                  value={"password123"}
                   placeholder="••••••••"
                   className="focus:ring-primary-600 focus:border-primary-600 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm"
                   required
@@ -94,34 +98,39 @@ export const Login = () => {
 
 export const FileUploadComponent = () => {
   const [selectedFile, setSelectedFile] = useState(null);
+  const [previewUrl, setPreviewUrl] = useState(null);
 
   const handleFileChange = event => {
-    console.log(event.target.file);
-    setSelectedFile(event.target.files[0]);
+    const file = event.target.files[0];
+    setSelectedFile(file);
+    setPreviewUrl(URL.createObjectURL(file));
   };
 
   const handleUpload = async () => {
     try {
-      const formData = new FormData();
+      let formData = new FormData();
       formData.append("file", selectedFile);
-
       const response = await axios.post("/api/upload", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
 
-      console.log("File uploaded successfully:", response.data);
+      // console.log("File uploaded successfully:", response.data);
 
-      return toast("File uploaded successfully");
+      toast("File uploaded successfully");
     } catch (error) {
-      console.error("Error uploading file:", error);
+      if (error instanceof Error)
+        console.error("Error uploading file:", error.message);
     }
   };
 
   return (
     <div>
-      <input type="file" onChange={handleFileChange} />
+      <input type="file" accept="image/jpg" onChange={handleFileChange} />
+      {previewUrl && (
+        <Image src={previewUrl} alt="Selected file" width={200} height={200} />
+      )}
       <button onClick={handleUpload} disabled={!selectedFile}>
         Upload
       </button>
@@ -131,16 +140,15 @@ export const FileUploadComponent = () => {
 
 export const CameraComponent = () => {
   const webcamRef = useRef(null);
-
   const captureImage = async () => {
-    const imageSrc = webcamRef.current.getScreenshot();
-    webcamRef.current.getScreenshot();
-    try {
-      const response = await axios.post("/api/upload", { image: imageSrc });
-      console.log("Image uploaded successfully:", response.data);
-    } catch (error) {
-      console.error("Error uploading image:", error);
-    }
+    const imageSrc = await webcamRef.current.getScreenshot();
+    console.log({ imageSrc });
+    // try {
+    //   const response = await axios.post("/api/upload", { image: imageSrc });
+    //   console.log("Image uploaded successfully:", response.data);
+    // } catch (error) {
+    //   console.error("Error uploading image:", error);
+    // }
   };
 
   return (
@@ -148,5 +156,32 @@ export const CameraComponent = () => {
       <Webcam audio={false} ref={webcamRef} />
       <button onClick={captureImage}>Capture</button>
     </div>
+  );
+};
+
+export const dataPreview = () => {
+  return (
+    <dl class="max-w-md divide-y divide-gray-200 text-gray-900 dark:divide-gray-700 dark:text-white">
+      <div class="flex flex-col pb-3">
+        <dt class="mb-1 text-gray-500 dark:text-gray-400 md:text-lg">
+          Email address
+        </dt>
+        <dd class="text-lg font-semibold">yourname@something.com</dd>
+      </div>
+      <div class="flex flex-col py-3">
+        <dt class="mb-1 text-gray-500 dark:text-gray-400 md:text-lg">
+          Home address
+        </dt>
+        <dd class="text-lg font-semibold">
+          92 Miles Drive, Newark, NJ 07103, California, USA
+        </dd>
+      </div>
+      <div class="flex flex-col pt-3">
+        <dt class="mb-1 text-gray-500 dark:text-gray-400 md:text-lg">
+          Phone number
+        </dt>
+        <dd class="text-lg font-semibold">+00 123 456 789 / +12 345 678</dd>
+      </div>
+    </dl>
   );
 };
