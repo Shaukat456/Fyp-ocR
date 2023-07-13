@@ -2,7 +2,6 @@ import { CameraComponent, Datalist, FileUploadComponent } from "@/pages/Login";
 import Head from "next/head";
 
 export default function Home() {
-  // const notify = ()
   return (
     <div>
       <Head>
