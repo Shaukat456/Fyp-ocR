@@ -158,34 +158,34 @@ export const CameraComponent = () => {
 export const Datalist = () => {
   return (
     <div className="m-10">
-      <dl class="max-w-md divide-y divide-gray-200 text-gray-900 dark:divide-gray-700 dark:text-white">
-        <div class="flex flex-col pb-3">
-          <dt class="mb-1 text-gray-500 dark:text-gray-400 md:text-lg">
+      <dl className="max-w-md divide-y divide-gray-200 text-gray-900 dark:divide-gray-700 dark:text-white">
+        <div className="flex flex-col pb-3">
+          <dt className="mb-1 text-gray-500 dark:text-gray-400 md:text-lg">
             Email address
           </dt>
-          <dd class="text-lg font-semibold">yourname@something.com</dd>
+          <dd className="text-lg font-semibold">yourname@something.com</dd>
         </div>
-        <div class="flex flex-col py-3">
-          <dt class="mb-1 text-gray-500 dark:text-gray-400 md:text-lg">
+        <div className="flex flex-col py-3">
+          <dt className="mb-1 text-gray-500 dark:text-gray-400 md:text-lg">
             Home address
           </dt>
-          <dd class="text-lg font-semibold">
+          <dd className="text-lg font-semibold">
             92 Miles Drive, Newark, NJ 07103, California, USA
           </dd>
         </div>
-        <div class="flex flex-col py-3">
-          <dt class="mb-1 text-gray-500 dark:text-gray-400 md:text-lg">
+        <div className="flex flex-col py-3">
+          <dt className="mb-1 text-gray-500 dark:text-gray-400 md:text-lg">
             Home address
           </dt>
-          <dd class="text-lg font-semibold">
+          <dd className="text-lg font-semibold">
             92 Miles Drive, Newark, NJ 07103, California, USA
           </dd>
         </div>
-        <div class="flex flex-col py-3">
-          <dt class="mb-1 text-gray-500 dark:text-gray-400 md:text-lg">
+        <div className="flex flex-col py-3">
+          <dt className="mb-1 text-gray-500 dark:text-gray-400 md:text-lg">
             Home address
           </dt>
-          <dd class="text-lg font-semibold">
+          <dd className="text-lg font-semibold">
             92 Miles Drive, Newark, NJ 07103, California, USA
           </dd>
         </div>
