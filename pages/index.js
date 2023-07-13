@@ -1,6 +1,5 @@
 import { CameraComponent, Datalist, FileUploadComponent } from "@/pages/Login";
 import Head from "next/head";
-import { ToastContainer } from "react-toastify";
 
 export default function Home() {
   // const notify = ()
@@ -15,7 +14,7 @@ export default function Home() {
       {/* <Login /> */}
       <CameraComponent />
       <FileUploadComponent />
-      <ToastContainer />
+
       <Datalist />
     </div>
   );

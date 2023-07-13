@@ -11,12 +11,11 @@ export const Login = () => {
     let values = Object.fromEntries(data);
     console.log({ values });
     if (!data.get("name") || !data.get("email")) {
-      return toast("", {
-        type: "error",
-      });
+      return;
     }
 
     const emailRegex = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z]+$/;
+
     if (!emailRegex.test(data.get("email"))) {
       alert("Please enter a valid email address.");
       return "Please enter a valid email address.";
