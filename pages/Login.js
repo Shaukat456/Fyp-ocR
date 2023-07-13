@@ -5,8 +5,6 @@ import { toast } from "react-toastify";
 import Webcam from "react-webcam";
 
 export const Login = () => {
-  const [name, setName] = useState();
-
   const handleSubmit = e => {
     let data = new FormData(e.target);
 
@@ -19,7 +17,6 @@ export const Login = () => {
     }
 
     const emailRegex = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z]+$/;
-
     if (!emailRegex.test(data.get("email"))) {
       alert("Please enter a valid email address.");
       return "Please enter a valid email address.";
@@ -116,7 +113,7 @@ export const FileUploadComponent = () => {
         },
       });
 
-      // console.log("File uploaded successfully:", response.data);
+      console.log(response.data);
 
       toast("File uploaded successfully");
     } catch (error) {
@@ -159,29 +156,79 @@ export const CameraComponent = () => {
   );
 };
 
-export const dataPreview = () => {
+export const Datalist = () => {
   return (
-    <dl class="max-w-md divide-y divide-gray-200 text-gray-900 dark:divide-gray-700 dark:text-white">
-      <div class="flex flex-col pb-3">
-        <dt class="mb-1 text-gray-500 dark:text-gray-400 md:text-lg">
-          Email address
-        </dt>
-        <dd class="text-lg font-semibold">yourname@something.com</dd>
+    <div className="m-10">
+      <dl class="max-w-md divide-y divide-gray-200 text-gray-900 dark:divide-gray-700 dark:text-white">
+        <div class="flex flex-col pb-3">
+          <dt class="mb-1 text-gray-500 dark:text-gray-400 md:text-lg">
+            Email address
+          </dt>
+          <dd class="text-lg font-semibold">yourname@something.com</dd>
+        </div>
+        <div class="flex flex-col py-3">
+          <dt class="mb-1 text-gray-500 dark:text-gray-400 md:text-lg">
+            Home address
+          </dt>
+          <dd class="text-lg font-semibold">
+            92 Miles Drive, Newark, NJ 07103, California, USA
+          </dd>
+        </div>
+        <div class="flex flex-col py-3">
+          <dt class="mb-1 text-gray-500 dark:text-gray-400 md:text-lg">
+            Home address
+          </dt>
+          <dd class="text-lg font-semibold">
+            92 Miles Drive, Newark, NJ 07103, California, USA
+          </dd>
+        </div>
+        <div class="flex flex-col py-3">
+          <dt class="mb-1 text-gray-500 dark:text-gray-400 md:text-lg">
+            Home address
+          </dt>
+          <dd class="text-lg font-semibold">
+            92 Miles Drive, Newark, NJ 07103, California, USA
+          </dd>
+        </div>
+      </dl>
+    </div>
+  );
+};
+
+export const Footer = () => {
+  return (
+    <footer className="fixed  bottom-0 m-4   w-full rounded-lg bg-white shadow dark:bg-gray-800 ">
+      <div className="mx-auto w-full max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
+        <span className="text-sm text-gray-500 dark:text-gray-400 sm:text-center">
+          © 2023{" "}
+          <a href="" className="hover:underline">
+            OCR
+          </a>
+          . All Rights Reserved.
+        </span>
+        <ul className="mt-3 flex flex-wrap items-center text-sm font-medium text-gray-500 dark:text-gray-400 sm:mt-0">
+          <li>
+            <a href="#" className="mr-4 hover:underline md:mr-6 ">
+              About
+            </a>
+          </li>
+          <li>
+            <a href="#" className="mr-4 hover:underline md:mr-6">
+              Privacy Policy
+            </a>
+          </li>
+          <li>
+            <a href="#" className="mr-4 hover:underline md:mr-6">
+              Licensing
+            </a>
+          </li>
+          <li>
+            <a href="#" className="hover:underline">
+              Contact
+            </a>
+          </li>
+        </ul>
       </div>
-      <div class="flex flex-col py-3">
-        <dt class="mb-1 text-gray-500 dark:text-gray-400 md:text-lg">
-          Home address
-        </dt>
-        <dd class="text-lg font-semibold">
-          92 Miles Drive, Newark, NJ 07103, California, USA
-        </dd>
-      </div>
-      <div class="flex flex-col pt-3">
-        <dt class="mb-1 text-gray-500 dark:text-gray-400 md:text-lg">
-          Phone number
-        </dt>
-        <dd class="text-lg font-semibold">+00 123 456 789 / +12 345 678</dd>
-      </div>
-    </dl>
+    </footer>
   );
 };
