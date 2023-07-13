@@ -11,10 +11,18 @@ export default function Home() {
       </Head>
 
       {/* <Login /> */}
-      <CameraComponent />
-      <FileUploadComponent />
+      <div className="  flex flex-col items-center justify-center">
+        <CameraComponent />
 
-      <Datalist />
+        <div className="space-y-20">
+        <h1 className="text-2xl">
+          Upload File <strong>Or</strong> Take a picture{" "}
+        </h1>
+          <FileUploadComponent />
+        </div>
+
+        <Datalist />
+      </div>
     </div>
   );
 }

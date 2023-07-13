@@ -106,7 +106,7 @@ export const FileUploadComponent = () => {
     try {
       let formData = new FormData();
       formData.append("file", selectedFile);
-      const response = await axios.post("/api/upload", formData, {
+      const response = await axios.post("localhost:8000/filesent", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -139,12 +139,12 @@ export const CameraComponent = () => {
   const captureImage = async () => {
     const imageSrc = await webcamRef.current.getScreenshot();
     console.log({ imageSrc });
-    // try {
-    //   const response = await axios.post("/api/upload", { image: imageSrc });
-    //   console.log("Image uploaded successfully:", response.data);
-    // } catch (error) {
-    //   console.error("Error uploading image:", error);
-    // }
+    try {
+      const response = await axios.post("localhost:8000/filesent", { image: imageSrc });
+      console.log("Image uploaded successfully:", response.data);
+    } catch (error) {
+      console.error("Error uploading image:", error);
+    }
   };
 
   return (
