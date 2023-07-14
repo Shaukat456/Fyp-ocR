@@ -138,8 +138,7 @@ export const CameraComponent = () => {
   const webcamRef = useRef(null);
   const captureImage = async () => {
     const imageSrc = await webcamRef.current.getScreenshot();
-    console.log({ imageSrc });
-    try {
+      try {
       const response = await axios.post("localhost:8000/filesent", { image: imageSrc });
       console.log("Image uploaded successfully:", response.data);
     } catch (error) {
