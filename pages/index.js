@@ -15,9 +15,9 @@ export default function Home() {
         <CameraComponent />
 
         <div className="space-y-20">
-        <h1 className="text-2xl">
-          Upload File <strong>Or</strong> Take a picture{" "}
-        </h1>
+          <h1 className="text-2xl">
+            Upload File <strong>Or</strong> Take a picture
+          </h1>
           <FileUploadComponent />
         </div>
 
