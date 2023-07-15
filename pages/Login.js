@@ -105,8 +105,8 @@ export const FileUploadComponent = () => {
   const handleUpload = async () => {
     try {
       let formData = new FormData();
-      formData.append("file", selectedFile);
-      const response = await axios.post("localhost:8000/filesent", formData, {
+      formData.append("filelist", selectedFile);
+      const response = await axios.post("localhost:8000/filesend", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -139,7 +139,7 @@ export const CameraComponent = () => {
   const captureImage = async () => {
     const imageSrc = await webcamRef.current.getScreenshot();
     try {
-      const response = await axios.post("localhost:8000/filesent", {
+      const response = await axios.post("localhost:8000/filesend", {
         image: imageSrc,
       });
       console.log("Image uploaded successfully:", response.data);

@@ -1,11 +1,10 @@
-// next.config.js
 module.exports = {
   reactStrictMode: true,
   async rewrites() {
     return [
       {
         source: "/api/:path*",
-        destination: "https://localhost:8000*",
+        destination: "http://localhost:8000/filesend", // Proxy to your API codebase
       },
     ];
   },
