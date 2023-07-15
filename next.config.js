@@ -1,6 +1,12 @@
-import cors from "./cors";
-
+// next.config.js
 module.exports = {
   reactStrictMode: true,
-  cors: cors,
+  async rewrites() {
+    return [
+      {
+        source: "/api/:path*",
+        destination: "https://localhost:8000*",
+      },
+    ];
+  },
 };

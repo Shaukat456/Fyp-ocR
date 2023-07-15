@@ -138,8 +138,10 @@ export const CameraComponent = () => {
   const webcamRef = useRef(null);
   const captureImage = async () => {
     const imageSrc = await webcamRef.current.getScreenshot();
-      try {
-      const response = await axios.post("localhost:8000/filesent", { image: imageSrc });
+    try {
+      const response = await axios.post("localhost:8000/filesent", {
+        image: imageSrc,
+      });
       console.log("Image uploaded successfully:", response.data);
     } catch (error) {
       console.error("Error uploading image:", error);
@@ -147,9 +149,17 @@ export const CameraComponent = () => {
   };
 
   return (
-    <div>
+    <div
+      className="cursor-pointer items-center justify-center border border-lime-900 text-center "
+      title="Take Picture"
+    >
       <Webcam audio={false} ref={webcamRef} />
-      <button onClick={captureImage}>Capture</button>
+      <button
+        className="rounded-xl border border-blue-800 bg-blue-700 p-2 text-slate-200 "
+        onClick={captureImage}
+      >
+        Capture
+      </button>
     </div>
   );
 };

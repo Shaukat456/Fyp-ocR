@@ -14,9 +14,10 @@ export default function Home() {
       <div className="  flex flex-col items-center justify-center">
         <CameraComponent />
 
-        <div className="space-y-20">
-          <h1 className="text-2xl">
-            Upload File <strong>Or</strong> Take a picture
+        <div className="space-y-20 p-4">
+          <h1 className="text-center text-2xl">
+            Upload File <strong className="text-blue-400">Or</strong> Take a
+            picture
           </h1>
           <FileUploadComponent />
         </div>

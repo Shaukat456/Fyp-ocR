@@ -3,7 +3,7 @@ import React from "react";
 export const Navbar = () => {
   return (
     <div>
-      <nav className="border-gray-200 bg-white dark:bg-gray-900">
+      <nav className="mb-10 border-gray-200  dark:bg-gray-900">
         <div className="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between p-4">
           <a href="#" className="flex items-center">
             <span className="self-center whitespace-nowrap text-2xl font-semibold dark:text-white">
@@ -23,15 +23,7 @@ export const Navbar = () => {
               aria-hidden="true"
               fill="none"
               viewBox="0 0 17 14"
-            >
-              <path
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M1 1h15M1 7h15M1 13h15"
-              />
-            </svg>
+            ></svg>
           </button>
           <div className="hidden w-full md:block md:w-auto" id="navbar-default">
             <ul className="mt-4 flex flex-col rounded-lg border border-gray-100 bg-gray-50 p-4 font-medium dark:border-gray-700 dark:bg-gray-800 md:mt-0 md:flex-row md:space-x-8 md:border-0 md:bg-white md:p-0 md:dark:bg-gray-900">
