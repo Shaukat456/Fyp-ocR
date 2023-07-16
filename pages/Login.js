@@ -9,7 +9,8 @@ export const Login = ({setUser}) => {
     let data = new FormData(e.target);
 
     let values = Object.fromEntries(data);
-    console.log({ values });
+   
+
     // if (!data.get("name") || !data.get("email")) {
     //   return;
     // }
@@ -75,15 +76,7 @@ export const Login = ({setUser}) => {
               >
                 Sign in
               </button>
-              <p className="space-x-5 text-sm font-light text-gray-900 dark:text-gray-400">
-                Don’t have an account yet?
-                <a
-                  href="#"
-                  className=" text-primary-600 dark:text-primary-500 space-x-6 font-medium hover:underline"
-                >
-                  Sign up
-                </a>
-              </p>
+             
             </form>
           </div>
         </div>
@@ -159,9 +152,13 @@ const handleFileChange = event => {
       <Image src={previewUrl} alt="Selected file" width={200} height={200} />
     )}
     <div className="p-1">
-      {error && (
-        <p className="my-5 border bg-red-500 text-white rounded-lg p-1">Error</p>
-      )}
+    {error && (
+  <div className="my-2 bg-red-500 text-white rounded-lg p-2">
+    <p className="text-sm font-medium"> Please Select Atleast One File  </p>
+  </div>
+)}
+
+
     </div>
     <button
       onClick={handleUpload}
@@ -170,42 +167,67 @@ const handleFileChange = event => {
     >
       Upload
     </button>
-  </div>
-  
-  
-  
+  </div>  
   );
 };
 
+
+
+
+
+
 export const CameraComponent = () => {
   const webcamRef = useRef(null);
+  const [isCameraPaused, setIsCameraPaused] = useState(false);
+  const [showLoader, setShowLoader] = useState(false);
+
   const captureImage = async () => {
+    setIsCameraPaused(true); 
+    setShowLoader(true); 
+
     const imageSrc = await webcamRef.current.getScreenshot();
+
     try {
       const response = await axios.post("localhost:8000/filesend", {
         image: imageSrc,
       });
+
       console.log("Image uploaded successfully:", response.data);
     } catch (error) {
       console.error("Error uploading image:", error);
     }
+
+    setTimeout(() => {
+      setShowLoader(false); 
+      setIsCameraPaused(false);
+    }, 4000);
   };
 
   return (
-    <div
-      className="cursor-pointer items-center justify-center border border-lime-900 text-center "
-      title="Take Picture"
-    >
-      <Webcam audio={false} ref={webcamRef} />
-      <button
-        className="rounded-xl border border-blue-800 bg-blue-700 p-2 text-slate-200 "
-        onClick={captureImage}
-      >
-        Capture
-      </button>
-    </div>
+    <>
+      {showLoader && (
+        <div className="fixed top-0 left-0 w-screen h-screen flex items-center justify-center bg-gray-900 bg-opacity-50 z-50">
+        <div className="flex items-center justify-center space-x-2">
+          <div className="w-3 h-3 bg-blue-700 rounded-full animate-pulse"></div>
+          <div className="w-3 h-3 bg-blue-700 rounded-full animate-pulse"></div>
+          <div className="w-3 h-3 bg-blue-700 rounded-full animate-pulse"></div>
+        </div>
+      </div>
+      
+      )}
+      <div className="cursor-pointer items-center justify-center border border-lime-900 text-center" title="Take Picture">
+        <Webcam audio={false} ref={webcamRef} screenshotFormat="image/jpeg" videoConstraints={{ facingMode: "environment" }} />
+        {!isCameraPaused && !showLoader && (
+          <button className="rounded-xl border border-blue-800 bg-blue-700 p-2 text-slate-200" onClick={captureImage}>
+            Capture
+          </button>
+        )}
+      </div>
+    </>
   );
 };
+
+
 
 export const Datalist = () => {
   return (
