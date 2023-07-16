@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const Login = () => {
+export const IbanForm = () => {
   const handleSubmit = async e => {
     let data = new FormData(e.target);
 

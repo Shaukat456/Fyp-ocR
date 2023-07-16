@@ -4,24 +4,26 @@ import React, { useRef, useState } from "react";
 import { toast } from "react-toastify";
 import Webcam from "react-webcam";
 
-export const Login = () => {
+export const Login = ({setUser}) => {
   const handleSubmit = e => {
     let data = new FormData(e.target);
 
     let values = Object.fromEntries(data);
     console.log({ values });
-    if (!data.get("name") || !data.get("email")) {
-      return;
-    }
+    // if (!data.get("name") || !data.get("email")) {
+    //   return;
+    // }
 
     const emailRegex = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z]+$/;
 
-    if (!emailRegex.test(data.get("email"))) {
-      alert("Please enter a valid email address.");
-      return "Please enter a valid email address.";
-    }
+    // if (!emailRegex.test(data.get("email"))) {
+    //   alert("Please enter a valid email address.");
+    //   return "Please enter a valid email address.";
+    // }
 
     e.preventDefault();
+
+     setUser(true)
   };
 
   return (
@@ -32,7 +34,7 @@ export const Login = () => {
             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 dark:text-white md:text-2xl">
               Sign in to your account
             </h1>
-            <form className="space-y-4 md:space-y-6">
+            <form  onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
               <div>
                 <label
                   htmlFor="email"
@@ -71,7 +73,7 @@ export const Login = () => {
               <button
                 type="submit"
                 className="bg-primary-600 hover:bg-primary-700 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 w-full rounded-lg bg-black px-5 py-2.5 text-center text-sm font-medium text-white focus:outline-none   focus:ring-4 "
-                onClick={handleSubmit}
+                // onClick={handleSubmit}
               >
                 Sign in
               </button>
@@ -93,14 +95,37 @@ export const Login = () => {
 };
 
 export const FileUploadComponent = () => {
-  const [selectedFile, setSelectedFile] = useState(null);
+  const [selectedFile, setSelectedFile] = useState([]);
   const [previewUrl, setPreviewUrl] = useState(null);
+  const [error, setError] = useState(false);
 
-  const handleFileChange = event => {
-    const file = event.target.files[0];
-    setSelectedFile(file);
-    setPreviewUrl(URL.createObjectURL(file));
-  };
+
+  
+const handleFileChange = event => {
+  const files = event.target.files; s
+  
+  if (!files || files.length <=0) {
+    return "ERROR UPLOADING FILES TO THE SERVER"
+  }
+
+ try {
+   for (let i = 0; i < files.length; i++) {
+    const file = files[i];
+    selectedFile.push(file);
+    previewUrl.push(URL.createObjectURL(file));
+  }
+
+  setSelectedFile(selectedFile); 
+  setPreviewUrl(previewUrl);
+ } catch (error) {
+  if (error instanceof Error ) {
+    console.log(error?.message)
+    return error.message
+
+  }
+ }
+  
+};
 
   const handleUpload = async () => {
     try {
@@ -113,20 +138,28 @@ export const FileUploadComponent = () => {
       });
 
       console.log(response.data);
-
       toast("File uploaded successfully");
+      return response.data
     } catch (error) {
-      if (error instanceof Error)
+      if (error instanceof Error){
         console.error("Error uploading file:", error.message);
+        setError(true)
+      }
     }
   };
 
   return (
     <div>
-      <input type="file" accept="image/jpg" onChange={handleFileChange} />
+      <input type="file"  multiple accept="image/jpg" onChange={handleFileChange} />
       {previewUrl && (
         <Image src={previewUrl} alt="Selected file" width={200} height={200} />
       )}
+      <div className="p-1">
+
+      { error && <p className="my-5 border bg-red-500 text-white rounded-lg p-1 " >    Error   </p>}
+      </div>
+     
+     
       <button onClick={handleUpload} disabled={!selectedFile}>
         Upload
       </button>
