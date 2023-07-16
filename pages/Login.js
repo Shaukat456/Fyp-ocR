@@ -20,10 +20,9 @@ export const Login = ({setUser}) => {
     //   alert("Please enter a valid email address.");
     //   return "Please enter a valid email address.";
     // }
-
-    e.preventDefault();
-
-     setUser(true)
+  
+   e.preventDefault();
+   setUser(true)
   };
 
   return (
@@ -148,21 +147,33 @@ const handleFileChange = event => {
   };
 
   return (
-    <div>
-      <input type="file"  multiple accept="image/jpg" onChange={handleFileChange} />
-      {previewUrl && (
-        <Image src={previewUrl} alt="Selected file" width={200} height={200} />
+    <div className="flex flex-col items-center">
+    <input
+      className="border border-gray-300 rounded-md p-4 bg-gray-100 text-gray-700 text-sm leading-5 focus:outline-none focus:border-blue-400 focus:shadow-outline-blue focus:ring-blue-400"
+      type="file"
+      multiple
+      accept="image/jpg"
+      onChange={handleFileChange}
+    />
+    {previewUrl && (
+      <Image src={previewUrl} alt="Selected file" width={200} height={200} />
+    )}
+    <div className="p-1">
+      {error && (
+        <p className="my-5 border bg-red-500 text-white rounded-lg p-1">Error</p>
       )}
-      <div className="p-1">
-
-      { error && <p className="my-5 border bg-red-500 text-white rounded-lg p-1 " >    Error   </p>}
-      </div>
-     
-     
-      <button onClick={handleUpload} disabled={!selectedFile}>
-        Upload
-      </button>
     </div>
+    <button
+      onClick={handleUpload}
+      disabled={!selectedFile}
+      className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-3 rounded-md mt-4 focus:outline-none focus:shadow-outline-blue focus:ring-2 focus:ring-blue-400 transition-all duration-200 ease-in-out transform hover:scale-105"
+    >
+      Upload
+    </button>
+  </div>
+  
+  
+  
   );
 };
 
@@ -199,39 +210,40 @@ export const CameraComponent = () => {
 export const Datalist = () => {
   return (
     <div className="m-10">
-      <dl className="max-w-md divide-y divide-gray-200 text-gray-900 dark:divide-gray-700 dark:text-white">
-        <div className="flex flex-col pb-3">
-          <dt className="mb-1 text-gray-500 dark:text-gray-400 md:text-lg">
-            Email address
-          </dt>
-          <dd className="text-lg font-semibold">yourname@something.com</dd>
-        </div>
-        <div className="flex flex-col py-3">
-          <dt className="mb-1 text-gray-500 dark:text-gray-400 md:text-lg">
-            Home address
-          </dt>
-          <dd className="text-lg font-semibold">
-            92 Miles Drive, Newark, NJ 07103, California, USA
-          </dd>
-        </div>
-        <div className="flex flex-col py-3">
-          <dt className="mb-1 text-gray-500 dark:text-gray-400 md:text-lg">
-            Home address
-          </dt>
-          <dd className="text-lg font-semibold">
-            92 Miles Drive, Newark, NJ 07103, California, USA
-          </dd>
-        </div>
-        <div className="flex flex-col py-3">
-          <dt className="mb-1 text-gray-500 dark:text-gray-400 md:text-lg">
-            Home address
-          </dt>
-          <dd className="text-lg font-semibold">
-            92 Miles Drive, Newark, NJ 07103, California, USA
-          </dd>
-        </div>
-      </dl>
+  <dl className="max-w-md divide-y divide-gray-200 text-gray-900 dark:divide-gray-700 dark:text-white">
+    <div className="py-3">
+      <dt className="mb-1 text-gray-500 dark:text-gray-400 md:text-lg font-medium">
+        Email address
+      </dt>
+      <dd className="text-lg">yourname@something.com</dd>
     </div>
+    <div className="py-3">
+      <dt className="mb-1 text-gray-500 dark:text-gray-400 md:text-lg font-medium">
+        Home address
+      </dt>
+      <dd className="text-lg">
+        92 Miles Drive, Newark, NJ 07103, California, USA
+      </dd>
+    </div>
+    <div className="py-3">
+      <dt className="mb-1 text-gray-500 dark:text-gray-400 md:text-lg font-medium">
+        Home address
+      </dt>
+      <dd className="text-lg">
+        92 Miles Drive, Newark, NJ 07103, California, USA
+      </dd>
+    </div>
+    <div className="py-3">
+      <dt className="mb-1 text-gray-500 dark:text-gray-400 md:text-lg font-medium">
+        Home address
+      </dt>
+      <dd className="text-lg">
+        92 Miles Drive, Newark, NJ 07103, California, USA
+      </dd>
+    </div>
+  </dl>
+</div>
+
   );
 };
 
