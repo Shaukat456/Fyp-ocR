@@ -28,7 +28,7 @@ export default function Home() {
 <IbanForm/>
         <CameraComponent />
 
-        <div className="space-y-20 p-4">
+        <div className="space-y-20 px-3 py-2">
           <h1 className="text-center text-2xl">
             Upload File <strong className="text-blue-400">Or</strong> Take a
             picture
