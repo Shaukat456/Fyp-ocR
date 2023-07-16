@@ -1,3 +1,4 @@
+import { IbanForm } from "@/Components/Form";
 import { Navbar } from "@/Components/Navbar";
 import { CameraComponent, Datalist, FileUploadComponent, Login } from "@/pages/Login";
 import Head from "next/head";
@@ -23,9 +24,9 @@ export default function Home() {
 {!user && <Login setUser={setUser} />
 
 }
-
       {  user &&  <div className="  flex flex-col items-center justify-center">
-        {/* <CameraComponent /> */}
+<IbanForm/>
+        <CameraComponent />
 
         <div className="space-y-20 p-4">
           <h1 className="text-center text-2xl">
