@@ -4,12 +4,11 @@ import React, { useRef, useState } from "react";
 import { toast } from "react-toastify";
 import Webcam from "react-webcam";
 
-export const Login = ({setUser}) => {
+export const Login = ({ setUser }) => {
   const handleSubmit = e => {
     let data = new FormData(e.target);
 
     let values = Object.fromEntries(data);
-   
 
     // if (!data.get("name") || !data.get("email")) {
     //   return;
@@ -21,9 +20,9 @@ export const Login = ({setUser}) => {
     //   alert("Please enter a valid email address.");
     //   return "Please enter a valid email address.";
     // }
-  
-   e.preventDefault();
-   setUser(true)
+
+    e.preventDefault();
+    setUser(true);
   };
 
   return (
@@ -34,7 +33,7 @@ export const Login = ({setUser}) => {
             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 dark:text-white md:text-2xl">
               Sign in to your account
             </h1>
-            <form  onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
               <div>
                 <label
                   htmlFor="email"
@@ -76,7 +75,6 @@ export const Login = ({setUser}) => {
               >
                 Sign in
               </button>
-             
             </form>
           </div>
         </div>
@@ -90,33 +88,29 @@ export const FileUploadComponent = () => {
   const [previewUrl, setPreviewUrl] = useState(null);
   const [error, setError] = useState(false);
 
+  const handleFileChange = event => {
+    const files = event.target.files;
 
-  
-const handleFileChange = event => {
-  const files = event.target.files; s
-  
-  if (!files || files.length <=0) {
-    return "ERROR UPLOADING FILES TO THE SERVER"
-  }
+    if (!files || files.length <= 0) {
+      return "ERROR UPLOADING FILES TO THE SERVER";
+    }
 
- try {
-   for (let i = 0; i < files.length; i++) {
-    const file = files[i];
-    selectedFile.push(file);
-    previewUrl.push(URL.createObjectURL(file));
-  }
+    try {
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        selectedFile.push(file);
+        previewUrl.push(URL.createObjectURL(file));
+      }
 
-  setSelectedFile(selectedFile); 
-  setPreviewUrl(previewUrl);
- } catch (error) {
-  if (error instanceof Error ) {
-    console.log(error?.message)
-    return error.message
-
-  }
- }
-  
-};
+      setSelectedFile(selectedFile);
+      setPreviewUrl(previewUrl);
+    } catch (error) {
+      if (error instanceof Error) {
+        console.log(error?.message);
+        return error.message;
+      }
+    }
+  };
 
   const handleUpload = async () => {
     try {
@@ -130,60 +124,57 @@ const handleFileChange = event => {
 
       console.log(response.data);
       toast("File uploaded successfully");
-      return response.data
+      return response.data;
     } catch (error) {
-      if (error instanceof Error){
+      if (error instanceof Error) {
         console.error("Error uploading file:", error.message);
-        setError(true)
+        setError(true);
       }
     }
   };
 
   return (
     <div className="flex flex-col items-center">
-    <input
-      className="border border-gray-300 rounded-md p-4 bg-gray-100 text-gray-700 text-sm leading-5 focus:outline-none focus:border-blue-400 focus:shadow-outline-blue focus:ring-blue-400"
-      type="file"
-      multiple
-      accept="image/jpg"
-      onChange={handleFileChange}
-    />
-    {previewUrl && (
-      <Image src={previewUrl} alt="Selected file" width={200} height={200} />
-    )}
-    <div className="p-1">
-    {error && (
-  <div className="my-2 bg-red-500 text-white rounded-lg p-2">
-    <p className="text-sm font-medium"> Please Select Atleast One File  </p>
-  </div>
-)}
-
-
+      <input
+        className="focus:shadow-outline-blue rounded-md border border-gray-300 bg-gray-100 p-4 text-sm leading-5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring-blue-400"
+        type="file"
+        multiple
+        accept="image/jpg"
+        onChange={handleFileChange}
+      />
+      {previewUrl && (
+        <Image src={previewUrl} alt="Selected file" width={200} height={200} />
+      )}
+      <div className="p-1">
+        {error && (
+          <div className="my-2 rounded-lg bg-red-500 p-2 text-white">
+            <p className="text-sm font-medium">
+              {" "}
+              Please Select Atleast One File{" "}
+            </p>
+          </div>
+        )}
+      </div>
+      <button
+        onClick={handleUpload}
+        disabled={!selectedFile}
+        className="focus:shadow-outline-blue mt-4 transform rounded-md bg-blue-500 px-3 py-2 font-semibold text-white transition-all duration-200 ease-in-out hover:scale-105 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
+      >
+        Upload
+      </button>
     </div>
-    <button
-      onClick={handleUpload}
-      disabled={!selectedFile}
-      className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-3 rounded-md mt-4 focus:outline-none focus:shadow-outline-blue focus:ring-2 focus:ring-blue-400 transition-all duration-200 ease-in-out transform hover:scale-105"
-    >
-      Upload
-    </button>
-  </div>  
   );
 };
-
-
-
-
-
 
 export const CameraComponent = () => {
   const webcamRef = useRef(null);
   const [isCameraPaused, setIsCameraPaused] = useState(false);
   const [showLoader, setShowLoader] = useState(false);
+  const [showCamera, setShowCamera] = useState(false);
 
   const captureImage = async () => {
-    setIsCameraPaused(true); 
-    setShowLoader(true); 
+    setIsCameraPaused(true);
+    setShowLoader(true);
 
     const imageSrc = await webcamRef.current.getScreenshot();
 
@@ -198,7 +189,7 @@ export const CameraComponent = () => {
     }
 
     setTimeout(() => {
-      setShowLoader(false); 
+      setShowLoader(false);
       setIsCameraPaused(false);
     }, 4000);
   };
@@ -206,19 +197,45 @@ export const CameraComponent = () => {
   return (
     <>
       {showLoader && (
-        <div className="fixed top-0 left-0 w-screen h-screen flex items-center justify-center bg-gray-900 bg-opacity-50 z-50">
-        <div className="flex items-center justify-center space-x-2">
-          <div className="w-3 h-3 bg-blue-700 rounded-full animate-pulse"></div>
-          <div className="w-3 h-3 bg-blue-700 rounded-full animate-pulse"></div>
-          <div className="w-3 h-3 bg-blue-700 rounded-full animate-pulse"></div>
+        <div className="fixed left-0 top-0 z-50 flex h-screen w-screen items-center justify-center bg-gray-900 bg-opacity-50">
+          <div className="flex items-center justify-center space-x-2">
+            <div className="h-3 w-3 animate-pulse rounded-full bg-blue-700"></div>
+            <div className="h-3 w-3 animate-pulse rounded-full bg-blue-700"></div>
+            <div className="h-3 w-3 animate-pulse rounded-full bg-blue-700"></div>
+          </div>
         </div>
-      </div>
-      
       )}
-      <div className="cursor-pointer items-center justify-center border border-lime-900 text-center" title="Take Picture">
-        <Webcam audio={false} ref={webcamRef} screenshotFormat="image/jpeg" videoConstraints={{ facingMode: "environment" }} />
-        {!isCameraPaused && !showLoader && (
-          <button className="rounded-xl border border-blue-800 bg-blue-700 p-2 text-slate-200" onClick={captureImage}>
+      {/* <button
+        className="rounded-xl border border-blue-800 bg-blue-700 p-2 text-slate-200"
+        onClick={captureImage}
+      >
+        Open Camera
+      </button> */}
+
+      <div
+        className="cursor-pointer items-center justify-center  space-x-5 text-center"
+        title="Take Picture"
+      >
+        <button
+          className="font-semi-bold rounded-xl border border-blue-800 bg-yellow-500 p-2 text-black"
+          onClick={() => setShowCamera(true)}
+        >
+          OPEN CAMERA
+        </button>
+
+        {showCamera && (
+          <Webcam
+            audio={false}
+            ref={webcamRef}
+            screenshotFormat="image/jpeg"
+            videoConstraints={{ facingMode: "environment" }}
+          />
+        )}
+        {!isCameraPaused && !showLoader && showCamera && (
+          <button
+            className="rounded-xl border border-blue-800 bg-blue-700 p-2 text-slate-200"
+            onClick={captureImage}
+          >
             Capture
           </button>
         )}
@@ -227,45 +244,42 @@ export const CameraComponent = () => {
   );
 };
 
-
-
 export const Datalist = () => {
   return (
     <div className="m-10">
-  <dl className="max-w-md divide-y divide-gray-200 text-gray-900 dark:divide-gray-700 dark:text-white">
-    <div className="py-3">
-      <dt className="mb-1 text-gray-500 dark:text-gray-400 md:text-lg font-medium">
-        Email address
-      </dt>
-      <dd className="text-lg">yourname@something.com</dd>
+      <dl className="max-w-md divide-y divide-gray-200 text-gray-900 dark:divide-gray-700 dark:text-white">
+        <div className="py-3">
+          <dt className="mb-1 font-medium text-gray-500 dark:text-gray-400 md:text-lg">
+            Email address
+          </dt>
+          <dd className="text-lg">yourname@something.com</dd>
+        </div>
+        <div className="py-3">
+          <dt className="mb-1 font-medium text-gray-500 dark:text-gray-400 md:text-lg">
+            Home address
+          </dt>
+          <dd className="text-lg">
+            92 Miles Drive, Newark, NJ 07103, California, USA
+          </dd>
+        </div>
+        <div className="py-3">
+          <dt className="mb-1 font-medium text-gray-500 dark:text-gray-400 md:text-lg">
+            Home address
+          </dt>
+          <dd className="text-lg">
+            92 Miles Drive, Newark, NJ 07103, California, USA
+          </dd>
+        </div>
+        <div className="py-3">
+          <dt className="mb-1 font-medium text-gray-500 dark:text-gray-400 md:text-lg">
+            Home address
+          </dt>
+          <dd className="text-lg">
+            92 Miles Drive, Newark, NJ 07103, California, USA
+          </dd>
+        </div>
+      </dl>
     </div>
-    <div className="py-3">
-      <dt className="mb-1 text-gray-500 dark:text-gray-400 md:text-lg font-medium">
-        Home address
-      </dt>
-      <dd className="text-lg">
-        92 Miles Drive, Newark, NJ 07103, California, USA
-      </dd>
-    </div>
-    <div className="py-3">
-      <dt className="mb-1 text-gray-500 dark:text-gray-400 md:text-lg font-medium">
-        Home address
-      </dt>
-      <dd className="text-lg">
-        92 Miles Drive, Newark, NJ 07103, California, USA
-      </dd>
-    </div>
-    <div className="py-3">
-      <dt className="mb-1 text-gray-500 dark:text-gray-400 md:text-lg font-medium">
-        Home address
-      </dt>
-      <dd className="text-lg">
-        92 Miles Drive, Newark, NJ 07103, California, USA
-      </dd>
-    </div>
-  </dl>
-</div>
-
   );
 };
 

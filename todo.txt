@@ -1,0 +1,18 @@
+Primary
+Enter Acc & BankName
+
+    - picture 
+    - Transaction approved |  Invoice (secondary)
+
+
+    - data (db) print 
+
+
+/endpoint acc and BankName
+
+
+
+Ui -
+Theme : Yellow white
+Camera should be hidden initially ! Should open on click
+
